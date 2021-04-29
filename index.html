@@ -55,7 +55,7 @@
 	</script>
 	<main>
 	  <div id="coverWindow">
-		<iframe id="pWindow" style="pointer-events:none;opacity:0;transition:.2s;position:fixed;overflow:hidden;" allowtransparency="true" boder=0 src="https://new.cosmosbots.com/purchase"></iframe>
+		<iframe id="pWindow" style="pointer-events:none;opacity:0;transition:.2s;position:fixed;overflow:hidden;display:none;" allowtransparency="true" boder=0 src="https://new.cosmosbots.com/purchase"></iframe>
 	  </div>
 	  <script>
 		var frameLoaded = false;
@@ -70,17 +70,20 @@
 			document.getElementById('pWindow').style.height = "98%";
 			document.getElementById('coverWindow').style.background = "rgba(0,0,0, 0)";
 			$('body').removeClass('stop-scrolling');
-			setTimeout(function() { document.getElementById('coverWindow').className = ""; }, 200);
+			setTimeout(function() { document.getElementById('coverWindow').className = ""; document.getElementById('pWindow').style.display = "none"; }, 200);
 		}
 
 		function showpWindow() {
 			if (frameLoaded) {
-				document.getElementById('pWindow').style.pointerEvents = "";
-				document.getElementById('pWindow').style.opacity = 1;
-				document.getElementById('pWindow').style.height = "90%";
-				document.getElementById('coverWindow').style.background = "rgba(0,0,0, 0.6)";
-				document.getElementById('coverWindow').className = "covering-panel";
-				$('body').addClass('stop-scrolling');
+				document.getElementById('pWindow').style.display = "";
+				setTimeout(function() {
+					document.getElementById('pWindow').style.pointerEvents = "";
+					document.getElementById('pWindow').style.opacity = 1;
+					document.getElementById('pWindow').style.height = "90%";
+					document.getElementById('coverWindow').style.background = "rgba(0,0,0, 0.6)";
+					document.getElementById('coverWindow').className = "covering-panel";
+					$('body').addClass('stop-scrolling');
+				}, 100);
 			} else {
 				console.log("iframe has been requested to open but is not loaded yet, trying again in 250ms");
 				setTimeout(function() { showpWindow() }, 250);

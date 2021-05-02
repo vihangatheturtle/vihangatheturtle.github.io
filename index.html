@@ -4,6 +4,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
 	<style>
 		iframe {
 			background-color: transparent;
@@ -32,13 +33,108 @@
 		  overflow: hidden;
 		}
 	</style>
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-152658833-1">
+	</script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'UA-152658833-1');
+	</script>
 </head>
 <body style="background-color:#121212">
 	<script>
+	function fConfetti() {
+		var count = 250;
+		var defaults = {
+		  origin: { y: 0.7 }
+		};
+
+		function fire(particleRatio, opts) {
+		  confetti(Object.assign({}, defaults, opts, {
+			particleCount: Math.floor(count * particleRatio),
+			spread: 85,
+			origin: { x: -0.01, y: -0.16 }
+		  }));
+		  confetti(Object.assign({}, defaults, opts, {
+			particleCount: Math.floor(count * particleRatio),
+			angle: 230,
+			spread: 85,
+			origin: { x: 1.01, y: -0.16 }
+		  }));
+		}
+
+		fire(0.25, {
+		  spread: 26,
+		  startVelocity: 55,
+		  angle: 230,
+		});
+		fire(0.2, {
+		  spread: 60,
+		  angle: 230,
+		});
+		fire(0.35, {
+		  spread: 100,
+		  decay: 0.91,
+		  angle: 230,
+		  scalar: 0.8
+		});
+		fire(0.1, {
+		  spread: 120,
+		  startVelocity: 15,
+		  decay: 0.92,
+		  angle: 230,
+		  scalar: 1.2
+		});
+		fire(0.1, {
+		  spread: 180,
+		  startVelocity: 45,
+		  angle: 230,
+		});
+		fire(0.3, {
+		  spread: 180,
+		  startVelocity: 80,
+		  angle: 230,
+		});
+
+		fire(0.25, {
+		  spread: 26,
+		  startVelocity: 55,
+		  angle: -50,
+		});
+		fire(0.2, {
+		  spread: 60,
+		  angle: -50,
+		});
+		fire(0.35, {
+		  spread: 100,
+		  decay: 0.91,
+		  angle: -50,
+		  scalar: 0.8
+		});
+		fire(0.1, {
+		  spread: 120,
+		  startVelocity: 15,
+		  decay: 0.92,
+		  angle: -50,
+		  scalar: 1.2
+		});
+		fire(0.1, {
+		  spread: 180,
+		  startVelocity: 45,
+		  angle: -50,
+		});
+		fire(0.3, {
+		  spread: 180,
+		  startVelocity: 80,
+		  angle: -50,
+		});
+	}
+	
 	function chkKey(data) {
 		if (data.status == 404) {
-			console.log("Invalid key, redirecting to login");
-			window.location = "http://dashboard.cosmosbots.com/oauth/authorize?grant_type=license&redirect_uri=https://cosmosbots.com/downloads";
+			console.log("Invalid key, failed to login");
 		} else if (data.status == 200) {
 			try {
 				document.cookie = "seshk=" + btoa(document.location.search.split('?license=')[1].split('&')[0]);
@@ -114,12 +210,9 @@
 			setTimeout(function() {
 				document.getElementById('csmsbtakeypurchasebtn-1830290421').disabled = true;
 				document.getElementById('csmsbtakeypurchasebtn-1830290421').innerHTML = 'Purchased<lottie-player id="confettiAnim" background="transparent"  speed="1" style="z-index:20;width:400px;height:400px;right:-160px;top:-185px;position:absolute;pointer-events:none;"></lottie-player>';
-				setTimeout(function() {
-					document.getElementById("confettiAnim").load("https://assets1.lottiefiles.com/packages/lf20_t1qvgine.json");
-					document.getElementById("confettiAnim").play();
-				}, 100);
+				fConfetti();
 			}, 750);
-			setTimeout(function() { login(); }, 3000);
+			setTimeout(function() { window.location = "https://" + window.location.host + window.location.pathname + "?license=" + event.data.split('FPCsuccesskey')[1]}, 4000);
 		}
 	});
 	</script>
@@ -180,14 +273,14 @@
 		<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 
 		<div class="row align-items-md-stretch">
-		  <div class="col-md-6">
+		  <div class="col-md-6 pb-4">
 			<div style="background-color:#222529" class="h-100 p-5 text-white rounded-3">
 			  <h2>Cosmos One</h2>
 			  <p>Cosmos One is a CLI product stock monitor designed to work on every website.</p>
 			  <button class="btn btn-outline-light" disabled type="button" id="csmsonebtadlbtn-1830290421">Coming Soon</button>
 			</div>
 		  </div>
-		  <div class="col-md-6" id="btakeyGridBox">
+		  <div class="col-md-6 pb-4" id="btakeyGridBox">
 			<div style="background-color:#1F2021" class="h-100 p-5 border border-dark text-light rounded-3">
 			  <h2>Beta Key</h2>
 			  <p>With a beta key you can access Cosmos AIO and Cosmos One. A beta key works during the beta period of Cosmos Bots.</p>
@@ -196,7 +289,7 @@
 		  </div>
 		</div>
 
-		<footer class="pt-3 mt-4 text-muted border-top border-dark">
+		<footer class="pt-3 text-muted border-top border-dark pb-4">
 		  <div style="float:left;">
 			&copy; Cosmos Bots 2021
 		  </div>
@@ -205,10 +298,5 @@
 		  </div>
 		</footer>
 	  </div>
-	  <script>
-		if (window.mobileCheck()) {
-			document.getElementById("btakeyGridBox").className = "col-md-6 pt-4";
-		}
-	  </script>
 	</main>
 </body>
